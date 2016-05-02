@@ -1,0 +1,31 @@
+{
+    "name": "campaignchain/hook-image",
+    "description": "Upload one or more Images for an Activity.",
+    "keywords": ["hook","campaignchain"],
+    "type": "campaignchain-hook",
+    "homepage": "http://www.campaignchain.com",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "CampaignChain, Inc.",
+            "email": "info@campaignchain.com",
+            "homepage": "http://www.campaignchain.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/CampaignChain/campaignchain-ce/issues",
+        "docs": "http://doc.campaignchain.com"
+    },
+    "autoload": {
+        "psr-4": { "CampaignChain\\Hook\\ImageBundle\\": "" }
+    },
+    "extra": {
+        "campaignchain": {
+            "kernel": {
+                "classes": [
+                    "CampaignChain\\Hook\\ImageBundle\\CampaignChainHookImageBundle"
+                ]
+            }
+        }
+    }
+}
