@@ -10,9 +10,10 @@
 
 namespace CampaignChain\Hook\ImageBundle\EntityService;
 
-use CampaignChain\CoreBundle\Entity\AssignableInterface;
+use CampaignChain\CoreBundle\Entity\Activity;
 use CampaignChain\CoreBundle\EntityService\HookServiceDefaultInterface;
 use CampaignChain\Hook\AssigneeBundle\Model\Assignee;
+use CampaignChain\Hook\ImageBundle\Entity\Image;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Inflector\Inflector;
 
@@ -26,22 +27,28 @@ class ImageService implements HookServiceDefaultInterface
     }
 
     public function getHook($entity){
-        $hook = new Assignee();
-        if($entity && $entity->getId() && $entity instanceof AssignableInterface){
-            $hook->setUser($entity->getAssignee());
-        }
-        return $hook;
+        return $entity->getImages();
     }
 
+    /**
+     * @param $entity
+     * @param Image[] $hook
+     * @return mixed
+     */
     public function processHook($entity, $hook){
-        if (!$entity instanceof AssignableInterface) {
+        if (!$entity instanceof Activity) {
             return $entity;
         }
 
-        $entity->setAssignee($hook->getUser());
+        foreach ($hook as $image) {
+            if (!$image->getPath()) {
+                continue;
+            }
 
-        $this->em->persist($entity);
-        $this->em->flush();
+            $image->setActivity($entity);
+            $entity->addImage($image);
+            $this->em->persist($image);
+        }
 
         return $entity;
     }

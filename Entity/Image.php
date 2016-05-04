@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Image
  * @package CampaignChain\Hook\ImageBundle\EntityService
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="CampaignChain\Hook\ImageBundle\Repository\ImageRepository")
  * @ORM\Table(name="campaignchain_hook_image")
  */
 class Image

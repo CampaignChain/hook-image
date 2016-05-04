@@ -12,5 +12,5 @@ hooks:
         services:
             form: campaignchain.hook.form.type.campaignchain.image
             entity: campaignchain.hook.campaignchain.image
-        label: Image
+        label:
         type: default
