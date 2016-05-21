@@ -67,6 +67,16 @@ class ImageService implements HookServiceDefaultInterface
         return $hook;
     }
 
+    public function processOrphaneHook($entity)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->delete('CampaignChain\Hook\ImageBundle\Entity\Image', 'i');
+        // TODO: https://github.com/CampaignChain/campaignchain-ce/issues/82
+        $qb->where('i.activity = :activity');
+        $qb->setParameter('activity', $entity);
+        $qb->getQuery()->execute();
+    }
+
     public function tplInline($entity){
     }
 }
