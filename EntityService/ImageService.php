@@ -46,6 +46,7 @@ class ImageService implements HookServiceDefaultInterface
             }
 
             $image->setActivity($entity);
+            // TODO: https://github.com/CampaignChain/campaignchain-ce/issues/82
             $entity->addImage($image);
             $this->em->persist($image);
         }
@@ -55,14 +56,11 @@ class ImageService implements HookServiceDefaultInterface
 
     public function arrayToObject($hookData){
         if(is_array($hookData) && count($hookData)){
-            $hook = new Assignee();
-            foreach($hookData as $property => $value){
-                // TODO: Research whether this is a security risk, e.g. if the property name has been injected via a REST post.
-                $method = (string) 'set'.Inflector::classify($property);
-                if($method == 'setUser' && !is_object($value)){
-                    $value = $this->em->getRepository('CampaignChainCoreBundle:User')->find($value);
-                }
-                $hook->$method($value);
+            foreach($hookData as $imageData){
+                $image = new Image();
+                $image->setPath($imageData['path']);
+
+                $hook[] = $image;
             }
         }
 
@@ -70,10 +68,5 @@ class ImageService implements HookServiceDefaultInterface
     }
 
     public function tplInline($entity){
-        $hook = $this->getHook($entity);
-        return $this->template->render(
-            'CampaignChainHookAssigneeBundle::inline.html.twig',
-            array('hook' => $hook)
-        );
     }
 }
