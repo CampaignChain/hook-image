@@ -36,19 +36,35 @@ class ImageService implements HookServiceDefaultInterface
      * @return mixed
      */
     public function processHook($entity, $hook){
+        // TODO: https://github.com/CampaignChain/campaignchain-ce/issues/82
         if (!$entity instanceof Activity) {
             return $entity;
         }
 
+        // Copy new or remaining images.
+        $newHook = array();
         foreach ($hook as $image) {
             if (!$image->getPath()) {
                 continue;
             }
 
-            $image->setActivity($entity);
-            // TODO: https://github.com/CampaignChain/campaignchain-ce/issues/82
-            $entity->addImage($image);
-            $this->em->persist($image);
+            $newImage = new Image();
+            $newImage->setPath($image->getPath());
+
+            $newHook[] = $newImage;
+        }
+
+        // Clean up all existing images.
+        $this->processOrphaneHook($entity);
+
+        // Persist images
+        if(count($newHook)) {
+            foreach ($newHook as $image) {
+                // TODO: https://github.com/CampaignChain/campaignchain-ce/issues/82
+                $image->setActivity($entity);
+                $entity->addImage($image);
+                $this->em->persist($image);
+            }
         }
 
         return $entity;
@@ -65,6 +81,17 @@ class ImageService implements HookServiceDefaultInterface
         }
 
         return $hook;
+    }
+
+    public function processOrphaneHook($entity)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->delete('CampaignChain\Hook\ImageBundle\Entity\Image', 'i');
+        // TODO: https://github.com/CampaignChain/campaignchain-ce/issues/82
+        $qb->where('i.activity = :activity');
+        $qb->orWhere('i.activity IS NULL');
+        $qb->setParameter('activity', $entity);
+        $qb->getQuery()->execute();
     }
 
     public function tplInline($entity){
