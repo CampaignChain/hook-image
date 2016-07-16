@@ -17,8 +17,13 @@
 
 namespace CampaignChain\Hook\ImageBundle;
 
+use CampaignChain\Hook\ImageBundle\DependencyInjection\CampaignChainHookImageExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class CampaignChainHookImageBundle extends Bundle
 {
+    public function getContainerExtension()
+    {
+        return new CampaignChainHookImageExtension();
+    }
 }
