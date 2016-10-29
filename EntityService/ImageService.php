@@ -21,16 +21,16 @@ use CampaignChain\CoreBundle\Entity\Activity;
 use CampaignChain\CoreBundle\EntityService\HookServiceDefaultInterface;
 use CampaignChain\Hook\AssigneeBundle\Model\Assignee;
 use CampaignChain\Hook\ImageBundle\Entity\Image;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Inflector\Inflector;
 
 class ImageService implements HookServiceDefaultInterface
 {
     protected $em;
 
-    public function __construct(EntityManager $em)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->em = $em;
+        $this->em = $managerRegistry->getManager();
     }
 
     public function getHook($entity){

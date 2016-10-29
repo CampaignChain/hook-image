@@ -18,6 +18,6 @@ services:
     campaignchain.hook.campaignchain.image:
         class: CampaignChain\Hook\ImageBundle\EntityService\ImageService
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine'
     campaignchain.hook.form.type.campaignchain.image:
         class: CampaignChain\Hook\ImageBundle\Form\Type\ImageHookType
