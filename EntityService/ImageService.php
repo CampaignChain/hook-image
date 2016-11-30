@@ -62,7 +62,7 @@ class ImageService implements HookServiceDefaultInterface
         }
 
         // Clean up all existing images.
-        //$this->processOrphaneHook($entity);
+        $this->processOrphaneHook($entity);
 
         // Persist images
         if(count($newHook)) {
