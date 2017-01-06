@@ -24,7 +24,7 @@ use CampaignChain\Hook\ImageBundle\Entity\Image;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Inflector\Inflector;
 
-class ImageService implements HookServiceDefaultInterface
+class ImageService extends HookServiceDefaultInterface
 {
     protected $em;
 
@@ -74,7 +74,9 @@ class ImageService implements HookServiceDefaultInterface
             }
         }
 
-        return $entity;
+        $this->setEntity($entity);
+
+        return true;
     }
 
     public function arrayToObject($hookData){
