@@ -20,6 +20,5 @@ assetic:
             inputs:
                 - '@CampaignChainHookImageBundle/Resources/public/css/base.css'
 twig:
-    form:
-        resources:
-            - 'CampaignChainHookImageBundle:Form:fields.html.twig'
+    form_themes:
+        - 'CampaignChainHookImageBundle:Form:fields.html.twig'
