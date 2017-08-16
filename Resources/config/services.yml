@@ -21,3 +21,5 @@ services:
             - '@doctrine'
     campaignchain.hook.form.type.campaignchain.image:
         class: CampaignChain\Hook\ImageBundle\Form\Type\ImageHookType
+        tags:
+            - { name: form.type }

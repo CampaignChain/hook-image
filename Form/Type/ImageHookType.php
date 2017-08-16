@@ -54,7 +54,7 @@ class ImageHookType extends HookType
     /**
      * @inheritdoc
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'campaignchain_hook_campaignchain_image';
     }
