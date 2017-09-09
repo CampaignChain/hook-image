@@ -27,6 +27,8 @@ class ImageHookType extends HookType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
+
         $resolver->setDefaults([
             'entry_type' => ImageType::class,
             'label' => false,
@@ -49,14 +51,6 @@ class ImageHookType extends HookType
     public function getBlockPrefix()
     {
         return $this->getName();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getBlockPrefix()
-    {
-        return 'campaignchain_hook_campaignchain_image';
     }
 
     public function getParent()
