@@ -40,6 +40,6 @@ class ImageType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return $this->getName();
+        return 'campaignchain_hook_image';
     }
 }

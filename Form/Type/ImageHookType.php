@@ -50,7 +50,7 @@ class ImageHookType extends HookType
      */
     public function getBlockPrefix()
     {
-        return $this->getName();
+        return 'campaignchain_hook_campaignchain_image';
     }
 
     public function getParent()
